@@ -1,3 +1,3 @@
-# funcs util for js/ts
+# function util for js/ts
 - debounce
 - throttle
