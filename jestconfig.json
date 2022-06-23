@@ -3,6 +3,6 @@
     "^.+\\.(t|j)sx?$": "ts-jest"
   },
   "testEnvironment": "jsdom",
-  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+  "testRegex": "/src/.*\\.(test|spec)\\.(tsx?|jsx?)$",
   "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
 }
