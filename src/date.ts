@@ -60,7 +60,7 @@
  /**
   * Time unit
   */
- Date.prototype.unitWeight = {
+ const unitWeight = {
    Y: 365 * 86400 * 1000,
    y: 365 * 86400 * 1000,
    m: 30 * 86400 * 1000,
@@ -71,12 +71,13 @@
    S: 1000,
    f: 1,
  };
- 
+
+ Date.prototype.unitWeight =  unitWeight
  /**
   * Diff time
   */
  Date.prototype.diff = function(d: Date, unit = 'S') {
-   let weight = this.unitWeight[unit];
+   let weight = this.unitWeight[unit] || 1000;
    // @ts-ignore
    return (this - d) / weight;
  };
@@ -95,7 +96,7 @@
   */
  Date.prototype.add = function(n = 0, unit = 'S') {
    let d = this.clone();
-   let weight = this.unitWeight[unit];
+   let weight = this.unitWeight[unit] || 1000;
    d._setTime(this._getTime() + n * weight);
    return d;
  };
@@ -113,12 +114,14 @@
        d = this;
    }
    format = {
+     f: format = '%Y-%m-%dT%H:%M:%S.%f%z',
      S: format = '%Y-%m-%dT%H:%M:%S.000%z',
      M: format = '%Y-%m-%dT%H:%M:00.000%z',
      H: format = '%Y-%m-%dT%H:00:00.000%z',
      d: format = '%Y-%m-%dT00:00:00.000%z',
      w: format = '%Y-%m-%dT00:00:00.000%z',
      m: format = '%Y-%m-01T00:00:00.000%z',
+     y: format = '%Y-01-01T00:00:00.000%z',
      Y: format = '%Y-01-01T00:00:00.000%z',
    }[unit];
    if (unit == 'w') {
@@ -130,7 +133,7 @@
    return d;
  };
  Date.prototype.endOf = function(n = 0, unit = 'S') {
-   return this.startOf(n + 1, unit).add(-1);
+   return this.startOf(n + 1, unit).add(-1, 'f');
  };
  
  //(new Date()).format()
@@ -241,26 +244,28 @@
  interface DateTypes {
    _setTime: typeof Date.prototype._setTime;
  }
+
+ type UnitType = keyof typeof unitWeight
  
  interface Date {
    timezoneOffset: number;
-   add: Function;
+   add(diff: number, unit?: UnitType): Date;
    getTimezone: Function;
    _getTime: Function;
    _setTime: Function;
    format(form?: string): string;
-   diff(d: Date): number;
-   startOf(diff: number, unit: 'Y' | 'm' | 'd' | 'H' | 'M' | 'S' | 'w'): Date;
-   endOf(diff: number, unit: 'Y' | 'm' | 'd' | 'H' | 'M' | 'S' | 'w'): Date;
+   diff(d: Date, unit?:UnitType): number;
+   startOf(diff: number, unit: UnitType): Date;
+   endOf(diff: number, unit: UnitType): Date;
    _toString(): string;
-   unitWeight: Record<string, number>;
+   unitWeight: typeof unitWeight;
    clone(): Date;
-   setYear(s: string | number): Date;
-   setMonth(s: string | number): Date;
-   setDate(s: string | number): Date;
-   setHours(s: string | number): Date;
-   setMinutes(s: string | number): Date;
-   setSeconds(s: string | number): Date;
+   setYear(s: string | number): number;
+   setMonth(s: string | number): number;
+   setDate(s: string | number): number;
+   setHours(s: string | number): number;
+   setMinutes(s: string | number): number;
+   setSeconds(s: string | number): number;
    setTimezone(hours: number, minutes?: number): Date;
    parseTime(s: string, formate?: string): Date;
  }
