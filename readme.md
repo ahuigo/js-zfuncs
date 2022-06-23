@@ -2,6 +2,8 @@
 Featured functions
 - debounce
 - throttle
+- b64Encode
+- b64Decode
 
 ## Install
     yarn add js-zfuncs

@@ -2,13 +2,13 @@ msg?=
 gitcheck:
 	if [[ "$(msg)" = "" ]] ; then echo "Usage: make pkg msg='commit msg'";exit 20; fi
 dev:
-	cnpm i
+	npm i
 test:
-	cnpm test
+	npm test
 build: test
-	cnpm run build
+	npm run build
 pkg: gitcheck build
-	npm version patch 
+	npm version patch --force
 	npm publish
 	git commit -am "$(msg)"
 	git push origin HEAD

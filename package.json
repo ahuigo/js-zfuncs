@@ -17,9 +17,6 @@
     "lint": "eslint -v src --ext .ts",
     "lintfix": "npx eslint -fix src --ext .ts"
   },
-  "jest": {
-    "testEnvironment": "jsdom"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
