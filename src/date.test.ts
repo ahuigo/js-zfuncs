@@ -1,4 +1,4 @@
-import '../date';
+import './date';
 
 
 it('test date', () => {
