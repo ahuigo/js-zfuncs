@@ -12,4 +12,5 @@ pkg: gitcheck build
 	npm publish
 	git commit -am "$(msg)"
 	git push origin HEAD
-
+new:
+	cp jestconfig.json package.json tsconfig.json makefile jestconfig.json .gitignore ../proj
