@@ -1,4 +1,4 @@
-import { debounce } from '../index';
+import { debounce } from './index';
 
 
 it('test debounce func abort & throw exception', async () => {
