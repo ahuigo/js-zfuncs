@@ -8,7 +8,7 @@ test:
 build: test
 	npm run build
 pkg: gitcheck build
-	npm version patch --force
+	npm version patch --force  --git-tag-version false
 	npm publish
 	git commit -am "$(msg)"
 	git push origin HEAD
